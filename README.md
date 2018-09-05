@@ -1,0 +1,2 @@
+# RabbitMQSimpleSetup
+RabbitMQ Simple Setup
