@@ -1,6 +1,6 @@
 ﻿namespace RabbitMQSimpleSetup.Domain {
 
-    public sealed class ConfigurationData {
+    public sealed class QueueConfigurationData {
         public string ExchangeName { get; set; }
         public string QueueName { get; set; }
         public string RouteName { get; set; }
