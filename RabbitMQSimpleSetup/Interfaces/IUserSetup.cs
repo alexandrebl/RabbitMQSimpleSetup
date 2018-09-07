@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace RabbitMQSimpleSetup.Interfaces {
     public interface IUserSetup
     {
-        Task<bool> GrantPermissionsAsync(string virtualHostName, string userName, VirtualHostUserPermission permissions,
+        Task<bool> GrantPermissionsAsync(VirtualHostUserPermission permissions,
             ConnectionSetting connectionSetting);
     }
 }

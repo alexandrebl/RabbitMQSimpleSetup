@@ -10,10 +10,10 @@ using RabbitMQSimpleSetup.Library;
 namespace RabbitMQSimpleSetup {
     public sealed class UserSetup : IUserSetup {
 
-        public async Task<bool> GrantPermissionsAsync(string virtualHostName, string userName, VirtualHostUserPermission permissions, ConnectionSetting connectionSetting) {
+        public async Task<bool> GrantPermissionsAsync(VirtualHostUserPermission permissions, ConnectionSetting connectionSetting) {
             using (var httpClient = RabbitMqHttpUtility.GetHttpClient(connectionSetting))
             {
-                var response = await httpClient.PutAsync($"permissions/{virtualHostName}/{userName}",
+                var response = await httpClient.PutAsync($"permissions/{connectionSetting.VirtualHost}/{connectionSetting.UserName}",
                     new StringContent(JsonConvert.SerializeObject(permissions), Encoding.UTF8, "application/json")).ConfigureAwait(false);
 
                 return response.IsSuccessStatusCode;
