@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RabbitMQSimpleConnectionFactory.Entity;
 using RabbitMQSimpleSetup.Domain;
+using RabbitMQSimpleSetup.Interfaces;
 using RabbitMQSimpleSetup.Library;
 
 namespace RabbitMQSimpleSetup {
-    public sealed class UserSetup {
+    public sealed class UserSetup : IUserSetup {
 
         public async Task<bool> GrantPermissionsAsync(string virtualHostName, string userName, VirtualHostUserPermission permissions, ConnectionSetting connectionSetting) {
             using (var httpClient = RabbitMqHttpUtility.GetHttpClient(connectionSetting))
