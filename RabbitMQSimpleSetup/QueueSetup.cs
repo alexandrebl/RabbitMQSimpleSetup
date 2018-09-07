@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RabbitMQSimpleSetup {
 
-    public class QueueSetup : IQueueSetup {
+    public sealed class QueueSetup : IQueueSetup {
 
         public void QueueDeclareAndBind(IModel channel, QueueConfigurationData configurationData, bool autoDelete = false, bool exclusive = false, bool durable = true) {
             var queueArguments = new Dictionary<string, object>();

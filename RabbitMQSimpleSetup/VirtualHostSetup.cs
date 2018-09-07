@@ -3,7 +3,7 @@ using RabbitMQSimpleSetup.Interfaces;
 using RabbitMQSimpleSetup.Library;
 
 namespace RabbitMQSimpleSetup {
-    public class VirtualHostSetup : IVirtualHostSetup {
+    public sealed class VirtualHostSetup : IVirtualHostSetup {
 
         public bool VirtualHostDeclare(ConnectionSetting connectionSetting) {
             using (var httpClient = RabbitMqHttpUtility.GetHttpClient(connectionSetting)) {
