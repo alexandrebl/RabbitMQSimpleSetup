@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
-    <PackageReference Include="RabbitMQSimpleConnectionFactory" Version="1.0.0" />
+    <PackageReference Include="RabbitMQSimpleConnectionFactory" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
