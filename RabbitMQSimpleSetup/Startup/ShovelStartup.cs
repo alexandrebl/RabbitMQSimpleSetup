@@ -18,18 +18,7 @@ namespace RabbitMQSimpleSetup.Startup {
                         $"amqp://{destinationConnectionSetting.UserName}:{destinationConnectionSetting.Password}@{destinationConnectionSetting.HostName}:{destinationConnectionSetting.Port}/{destinationConnectionSetting.VirtualHost}",
                         destinationExchangeName, destinationRoutingKey)), destinationConnectionSetting).Wait();
 
-            return $"{sourceQueue}.{shovelKey}";
-        }
-
-        public string PrepareShovel(string shovelName, string destinationExchangeName, string destinationRoutingKey,
-            ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting) {
-
-            var shovelKey = GetShovelKey(connectionSetting, destinationConnectionSetting);
-            var sourceQueue = $"{shovelName}.{shovelKey}";
-
-            PrepareShovel(shovelName, sourceQueue, destinationExchangeName, destinationRoutingKey, connectionSetting, destinationConnectionSetting);
-
-            return sourceQueue;
+            return shovelKey;
         }
 
         private static string GetShovelKey(ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting) {
