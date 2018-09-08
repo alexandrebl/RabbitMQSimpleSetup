@@ -6,7 +6,7 @@ using RabbitMQSimpleSetup.Domain.Shovel;
 
 namespace RabbitMQSimpleSetup.Startup {
     public class ShovelStartup {
-        public void PrepareShovel(string shovelName, string sourceQueue, string destinationExchangeName, string destinationRoutingKey,
+        public string PrepareShovel(string shovelName, string sourceQueue, string destinationExchangeName, string destinationRoutingKey,
             ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting)
         {
             var shovelKey = GetShovelKey(connectionSetting, destinationConnectionSetting);
@@ -18,6 +18,8 @@ namespace RabbitMQSimpleSetup.Startup {
                         sourceQueue,
                         $"amqp://{destinationConnectionSetting.UserName}:{destinationConnectionSetting.Password}@{destinationConnectionSetting.HostName}:{destinationConnectionSetting.Port}/{destinationConnectionSetting.VirtualHost}",
                         destinationExchangeName, destinationRoutingKey)), destinationConnectionSetting).Wait();
+
+            return shovelKey;
         }
 
         private static string GetShovelKey(ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting) {
