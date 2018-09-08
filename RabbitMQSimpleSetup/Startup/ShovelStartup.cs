@@ -16,7 +16,7 @@ namespace RabbitMQSimpleSetup.Startup {
                     new ShovelConfiguration(new ShovelConfigurationContent(
                         $"amqp://{connectionSetting.UserName}:{connectionSetting.Password}@{connectionSetting.HostName}:{connectionSetting.Port}/{connectionSetting.VirtualHost}",
                         sourceQueue,
-                        $"amqp://{destinationConnectionSetting.UserName}:{destinationConnectionSetting.Password}@{destinationConnectionSetting.HostName}:{connectionSetting.Port}/{destinationConnectionSetting.VirtualHost}",
+                        $"amqp://{destinationConnectionSetting.UserName}:{destinationConnectionSetting.Password}@{destinationConnectionSetting.HostName}:{destinationConnectionSetting.Port}/{destinationConnectionSetting.VirtualHost}",
                         destinationExchangeName, destinationRoutingKey)), destinationConnectionSetting);
         }
 
