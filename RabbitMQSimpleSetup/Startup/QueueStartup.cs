@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using RabbitMQSimpleSetup.Domain;
+using System.Collections.Generic;
 
 namespace RabbitMQSimpleSetup.Startup {
-    public class QueueStartup {
+    public sealed class QueueStartup {
         public void QueueInit(IModel channel, string exchange, IEnumerable<QueueBindingInfo> queueBindings, bool enableDeadLettering = true) {
             var exchangeSetup = new ExchangeSetup();
             var queueSetup = new QueueSetup();
