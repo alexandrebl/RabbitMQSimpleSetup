@@ -9,7 +9,7 @@ using RabbitMQSimpleSetup.Interfaces;
 using RabbitMQSimpleSetup.Library;
 
 namespace RabbitMQSimpleSetup {
-    public class PolicySetup : IPolicySetup {
+    public sealed class PolicySetup : IPolicySetup {
 
         public bool PolicyDeclare(ConnectionSetting connectionSetting, string policyName, RabbitMqVirtualHostPolicy policy) {
             using (var httpClient = RabbitMqHttpUtility.GetHttpClient(connectionSetting)) {
