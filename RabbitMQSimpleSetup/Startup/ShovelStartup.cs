@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using RabbitMQSimpleConnectionFactory.Entity;
 using RabbitMQSimpleSetup.Domain.Shovel;
 
 namespace RabbitMQSimpleSetup.Startup {
-    public class ShovelStartup
-    {
-
+    public class ShovelStartup {
         public async void PrepareShovel(string shovelName, string sourceQueue, string destinationExchangeName, string destinationRoutingKey,
             ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting)
         {
@@ -15,22 +14,27 @@ namespace RabbitMQSimpleSetup.Startup {
             await new ShovelSetup().ShovelDeclareAsync(
                 connectionSetting.VirtualHost, $"{shovelName}.{shovelKey}",
                     new ShovelConfiguration(new ShovelConfigurationContent(
-                        $"amqp://{connectionSetting.UserName}:{connectionSetting.Password}@{connectionSetting.HostName}:5672/{connectionSetting.VirtualHost}",
+                        $"amqp://{connectionSetting.UserName}:{connectionSetting.Password}@{connectionSetting.HostName}:{connectionSetting.Port}/{connectionSetting.VirtualHost}",
                         sourceQueue,
-                        $"amqp://{destinationConnectionSetting.UserName}:{destinationConnectionSetting.Password}@{destinationConnectionSetting.HostName}:5672/{destinationConnectionSetting.VirtualHost}",
+                        $"amqp://{destinationConnectionSetting.UserName}:{destinationConnectionSetting.Password}@{destinationConnectionSetting.HostName}:{connectionSetting.Port}/{destinationConnectionSetting.VirtualHost}",
                         destinationExchangeName, destinationRoutingKey)), destinationConnectionSetting);
         }
 
-        private static Guid GetShovelKey(ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting)
-        {
-            var seed =
-                $"{connectionSetting.UserName}|{connectionSetting.Password}|{connectionSetting.HostName}|{connectionSetting.VirtualHost}"
-                + $"{destinationConnectionSetting.UserName}|{destinationConnectionSetting.Password}|{destinationConnectionSetting.HostName}|{destinationConnectionSetting.VirtualHost}";
+        private static string GetShovelKey(ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting) {
+            var sb = new StringBuilder();
 
-            var buffer = Encoding.UTF8.GetBytes(seed);
-            var shovelKey = new Guid(buffer);
+            using (var hash = SHA256.Create()) {
+                var result = hash.ComputeHash(Encoding.UTF8.GetBytes(string.Join("|", connectionSetting.UserName, connectionSetting.Password,
+                    connectionSetting.HostName, connectionSetting.VirtualHost, destinationConnectionSetting.UserName,
+                    destinationConnectionSetting.Password, destinationConnectionSetting.HostName,
+                    destinationConnectionSetting.VirtualHost)));
 
-            return shovelKey;
+                foreach (var b in result) {
+                    sb.Append(b.ToString("x2"));
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }
