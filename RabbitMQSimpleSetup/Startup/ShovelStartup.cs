@@ -2,11 +2,14 @@
 using RabbitMQSimpleSetup.Domain.Shovel;
 using System.Security.Cryptography;
 using System.Text;
+using RabbitMQ.Client;
 
 namespace RabbitMQSimpleSetup.Startup {
     public class ShovelStartup {
         public string PrepareShovel(string shovelName, string sourceQueue, string destinationExchangeName, string destinationRoutingKey,
             ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting)
+
+
         {
             var shovelKey = GetShovelKey(connectionSetting, destinationConnectionSetting);
         
@@ -21,7 +24,7 @@ namespace RabbitMQSimpleSetup.Startup {
             return shovelKey;
         }
 
-        private static string GetShovelKey(ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting) {
+        public static string GetShovelKey(ConnectionSetting connectionSetting, ConnectionSetting destinationConnectionSetting) {
             var sb = new StringBuilder();
 
             using (var hash = SHA256.Create()) {
