@@ -6,7 +6,7 @@ namespace RabbitMQSimpleSetup.Startup
 {
     public sealed class QueueStartup
     {
-        public void QueueInit(IModel channel, string exchange, IEnumerable<QueueBindingInfo> queueBindings, IEnumerable<QueueAdditionalStructure> queueAddicionalStructures = null,
+        public void QueueInit(IModel channel, string exchange, IEnumerable<QueueBindingInfo> queueBindings, IEnumerable<QueueAdditionalStructure> queueAdditionalStructures = null,
             bool enableDeadLettering = true)
         {
             var exchangeSetup = new ExchangeSetup();
@@ -38,8 +38,8 @@ namespace RabbitMQSimpleSetup.Startup
                     DeadLetterRouteName = (enableDeadLettering) ? errorRouteName : null
                 }, autoDelete: false, exclusive: true, durable: false);
 
-                if (queueAddicionalStructures is null) continue;
-                foreach (var queueAddicionalStructure in queueAddicionalStructures)
+                if (queueAdditionalStructures is null) continue;
+                foreach (var queueAddicionalStructure in queueAdditionalStructures)
                 {
                     queueSetup.QueueDeclareAndBind(channel, new QueueConfigurationData
                     {
