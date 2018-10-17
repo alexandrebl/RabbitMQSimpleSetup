@@ -6,7 +6,7 @@ namespace RabbitMQSimpleSetup.Startup
 {
     public sealed class QueueStartup
     {
-        public void QueueInit(IModel channel, string exchange, IEnumerable<QueueBindingInfo> queueBindings, IEnumerable<QueueAddicionalStructure> queueAddicionalStructures = null,
+        public void QueueInit(IModel channel, string exchange, IEnumerable<QueueBindingInfo> queueBindings, IEnumerable<QueueAdditionalStructure> queueAddicionalStructures = null,
             bool enableDeadLettering = true)
         {
             var exchangeSetup = new ExchangeSetup();

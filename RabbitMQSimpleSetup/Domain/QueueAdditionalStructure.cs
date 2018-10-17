@@ -1,6 +1,6 @@
 ﻿namespace RabbitMQSimpleSetup.Domain
 {
-    public class QueueAddicionalStructure
+    public class QueueAdditionalStructure
     {
         public string SuffixQueueName { get; set; }
         public bool IsLazy { get; set; } = true;
